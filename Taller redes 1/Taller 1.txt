@@ -1,0 +1,50 @@
+*)Cuantos segmentos de red esta formada la topología
+Tiene un solo segmento de red Logico, tiene dos segmentos fisicos
+*)Cuantos dominios de colisión se indentifica
+4 colisiones (número de conexion de switch)
+*)Cuantos dominios de broadcast se indentifica
+1 Broadcast (cuantas conexiones tiene un router)
+*)Que tipos de cables se usa en cada conección
+Cable 1: Cable directo
+Cable 2: Cable Cruzado
+Cable 3: Cable directo
+Cable 4: Cable directo
+
+RT1: 0060.70db.8a02
+
+SW1:
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    0007.ec99.6001    DYNAMIC     Fa0/1
+   1    0060.2f35.d84a    DYNAMIC     Fa0/6
+   1    0060.70db.8a02    DYNAMIC     Fa0/5
+   1    0090.0c36.6050    DYNAMIC     Fa0/1
+   1    00d0.ff12.a586    DYNAMIC     Fa0/1
+
+SW2:
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    0060.2f35.d84a    DYNAMIC     Fa0/1
+   1    0090.0c54.3901    DYNAMIC     Fa0/1
+   1    00d0.ff12.a586    DYNAMIC     Fa0/18
+
+PC-A: 0060.2F35.D84A
+pc-B: 00D0.FF12.A586
+
+
+*) Ping De A a B (Segunda Capa)
+
+PC-A 	       -->>      S1 	    -->> S2	-->> PC-B
+0060.2F35.D84A -->>        0060.2F35.D84A     	-->> 00D0.FF12.A586
+
+*) Ping de B a 20.20.0.0
+PC-A 	       -->>      S2 	    -->>   S1  		-->>  PC-A
+00D0.FF12.A586 --->> FFFF.FFFF.FFFF -->> FFFF.FFFF.FFFF -->>  FFFF.FFFF.FFFF
+							-->>                  R1	      -->>   S1-->>S2                      -->>      PC-B          
+		    			 00D0.FF12.A586 --->> FFFF.FFFF.FFFF - 0060.70DB.8A02 -->> 00D0.FF12.A586 - 0060.70DB.8A02 -->> 0060.70DB.8A02
